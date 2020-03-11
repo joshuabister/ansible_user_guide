@@ -12,15 +12,6 @@ Ansible Engine Support – Ansible Playbook
 
 ·         Utilize GitLab – Link sent by Mr. Jean Figarella (Red Hat Consultant)
 
-1.       https://software.af.mil/dsop/
-
-2.       https://dccscr.dsop.io/users/sign_in
-
-Contact: 
-		"Ramos, Cyril L CIV USN FLEWEACEN SAN CA (USA)" <cyril.ramos@navy.mil>,
-"Harkness, Danny R Jr CTR USMC MWHS-3 (USA)" <danny.harkness1@navy.mil>,
-"Vanhouten, Jason J CTR (USA)" <jason.j.vanhouten1.ctr@navy.mil>
-
 --------------------------------------------------------------------------------------
 
 Created by Joshua Bister
