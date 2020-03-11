@@ -19,11 +19,17 @@ Email: jbister@redhat.com
 
 PREPARING PROJECT FOLDER
 ========================
+
 mkdir project_folder
+
 cd project_folder
+
 python3 -m venv venv
+
 source venv/bin/activate
+
 pip install ansible
+
 NOTE: we create the venv outside the roles folders so that the binaries are not uploaded to git
 
 CREATE NEW ROLE
