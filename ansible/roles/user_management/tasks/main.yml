@@ -1,0 +1,37 @@
+---
+# I don't mind being verbose for clarity here! 
+# The goal is uniformity so that we don't have to remember syntax for various commands.
+#
+# Name tasks clearly so you can call them directly when testing with the --start-at-task option.
+# ex: ansible-playbook user_management --start-at-task "Perform User Management"
+#
+# Some ansible modules have many options.
+# We can decide how we want our users of our roles interact with these modules.
+# This allows us to standardize how tasks are performed for complex operations such as user onboarding.
+# Below, we've selected a few options from the user module and we can filter out the others
+- name: Perform User Management
+  user:
+    name: "{{ username }}" # if we just put the var, then it is expected to be defined
+    comment: "{{ comment | default(none) }}" # default(none) means that argument is not included if no value is provided
+    uid: "{{ uid | default(none) }}"
+    group: "{{ primary_group | default(none) }}"
+    groups: "{{ secondary_groups | default(none) }}"
+    append: "{{ append_groups | default(true) }}"
+    home: "{{ path_to_home | default(none)  }}"
+    create_home: "{{ create_home | default(false) }}"
+    generate_ssh_key: "{{ generate_ssh_key | default(false)}}"i
+    shell: "{{ shell_path | default(none) }}"
+    state: "{{ state | default('present') }}"
+    remove: "{{ delete_user_folders | default(false) }}"
+    force: "{{ force | default(false) }}"
+  register: output
+
+  # This is a debug statement. 
+  # Normally I remove these, but I left it in to show how 
+  # a dev can debug output for a command
+- debug: 
+    var: output
+
+...
+  
+

@@ -1,0 +1,42 @@
+
+- hosts: servers
+  tasks:
+    - name: Add Users
+      include_role: 
+        name: user_management
+        vars: "{{ item }}"
+      # this will loop over the 2 datasets for user jseniordev and waynedev and call the user_management role once for each user
+      loop:
+        - username: jseniordev
+          groups:
+    	      - docker
+	          - dev
+	          - wheel
+          create_home: false
+       
+          # update user to have developer configuration specified in user_management/vars/group_dev
+        - username: waynedev
+          groups: "{{ userdev.groups }}"
+          append: true # (this is default behavior in MY role, is it in yours? be careful with things like this. read the docs! for some strange reason the default is FALSE in ansible 2.9!)
+
+
+    - name: install packages to specified version
+      include_role:
+        - name: server_patching
+          vars:
+            repositories:
+              - name: docker
+                description: docker official repo
+                file: docker_repos
+                baseurl: "https://download.docker.com/linux/centos/docker-ce.repo"
+                gpgcheck: true
+                gpgkey: "https://download.docker.com/linux/centos/gpg"
+              - name: epel
+                description: epel
+                file: extras
+                baseurl: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+                gpgcheck: true
+                gpgkey: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7"
+            packages:
+              - package\_name: docker
+                package\_version: 1.8.0

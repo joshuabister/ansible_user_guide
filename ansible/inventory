@@ -1,0 +1,12 @@
+[servers:children]
+webservers
+databases
+
+[webservers]
+web01
+web02
+
+[databases]
+db1
+db2
+db3

@@ -1,0 +1,6 @@
+---
+userdev:
+  groups: docker,dev
+
+userseniordev:
+  groups: docker,dev,wheel
