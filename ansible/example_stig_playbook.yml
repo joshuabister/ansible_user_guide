@@ -1,0 +1,23 @@
+---
+- hosts: servers
+  tasks:
+    - name: Run STIG
+      include_role:
+        - name: rhel7-stig
+          vars:
+            # Check the documentation for the variables documented in the README.md
+            rhel7stig_time_service: chronyd
+            rhel7stig_firewall_service: firewalld
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_major_version | version_compare('7', '=')
+
+    # Assuming changes to your server works you might proceed by running a verifier such as oscap
+    - name: Verify STIG with OSCAP
+      include_role:
+        - name: oscap
+          vars:
+            # you could have this role send the report to a server
+            output_server: report-server.home.local
+
+

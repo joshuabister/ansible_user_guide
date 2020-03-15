@@ -1,4 +1,16 @@
 ---
+- name: Generate Password
+  password:
+    encrypt: "{{ password_encrypt_scheme | default('sha-1') }}"
+    length: "{{ password_length }}"
+  # the password is stored in this variable
+  register: generated_password
+  # This means that the Generate Password task will run if the password_to_be_set variable is none
+  # and set_password is True
+  when: 
+    - password_to_be_set is None
+    - set_password | bool
+
 # I don't mind being verbose for clarity here! 
 # The goal is uniformity so that we don't have to remember syntax for various commands.
 #
@@ -21,16 +33,12 @@
     create_home: "{{ create_home | default(false) }}"
     generate_ssh_key: "{{ generate_ssh_key | default(false)}}"i
     shell: "{{ shell_path | default(none) }}"
+    # We reference the password we set in the above task if the password_to_be_set variable is not set.
+    # This shouldn't fail if we didnt want to generate a password, so we default to none
+    password: "{{ password_to_be_set if password_to_be_set is true else generated_password._raw | default(none) }}"
     state: "{{ state | default('present') }}"
     remove: "{{ delete_user_folders | default(false) }}"
     force: "{{ force | default(false) }}"
-  register: output
-
-  # This is a debug statement. 
-  # Normally I remove these, but I left it in to show how 
-  # a dev can debug output for a command
-- debug: 
-    var: output
 
 ...
   
