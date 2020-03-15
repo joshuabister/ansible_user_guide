@@ -13,7 +13,8 @@
 	          - dev
 	          - wheel
           create_home: false
-       
+          generate_password: true
+
           # update user to have developer configuration specified in user_management/vars/group_dev
         - username: waynedev
           groups: "{{ userdev.groups }}"

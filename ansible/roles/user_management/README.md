@@ -26,6 +26,7 @@ home: /home/jseniordev
 create\_home: false
 generate\_ssh\_key: false
 shell\_path: /bin/bash
+generate\_password: false
 state: present
 delete\_user\_folders: false
 force: false
